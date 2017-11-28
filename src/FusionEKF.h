@@ -32,6 +32,11 @@ public:
   KalmanFilter ekf_;
 
 private:
+
+  // Acceleration noise parameters (provided by course materials)
+  const float noise_ax = 9.0;
+  const float noise_ay = 9.0;
+
   // check whether the tracking toolbox was initialized or not (first measurement)
   bool is_initialized_;
 
@@ -44,6 +49,11 @@ private:
   Eigen::MatrixXd R_radar_;
   Eigen::MatrixXd H_laser_;
   Eigen::MatrixXd Hj_;
+
+  void InitializeEKF(const MeasurementPackage &measurement_pack);
+  void Update(const MeasurementPackage &measurement_pack);
+  void Predict(const MeasurementPackage &measurement_pack);
+  void PrintStateAndCovariance();   
 };
 
 #endif /* FusionEKF_H_ */
